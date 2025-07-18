@@ -1,0 +1,58 @@
+.addtodo-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.addtodo-box {
+  background-color: white;
+  width: 90vw;
+  height: 40vh;
+  margin-top: 4vh;
+  padding: 2vh;
+  border-radius: 10px;
+  color: black;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.addtodo-body {
+  text-align: left;
+  margin-top: 1.5vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#addtodo-title-textbox {
+  background-color: white;
+  outline: none;
+  border: 1px solid rgb(156, 181, 159);
+  color: black;
+  border-radius: 10px;
+  height: 5vh;
+  font-size: 100%;
+  padding: 0vh 1vh;
+  width: 100%;
+}
+
+#addtodo-desc-textbox {
+  background-color: white;
+  outline: none;
+  width: 100%;
+  border: 1px solid rgb(156, 181, 159);
+  color: black;
+  border-radius: 10px;
+  height: 11.5vh;
+  font-size: 1.8vh;
+  padding: 1vh;
+}
+
+.addtodo-button-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.3vh;
+}

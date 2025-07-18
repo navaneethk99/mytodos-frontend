@@ -1,0 +1,55 @@
+.profile-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-box {
+  background-color: white;
+  width: 90vw;
+  height: 60vh;
+  margin-top: 4vh;
+  padding: 2vh;
+  border-radius: 10px;
+}
+
+.profile-container {
+  color: black;
+}
+
+.avatar-container {
+  margin-top: 3vh;
+  text-align: center;
+}
+
+.profile-edit-container {
+  margin-top: 2vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+}
+
+.profile-edit-textbox {
+  background-color: white;
+  outline: none;
+  border: 1px solid rgb(156, 181, 159);
+  color: black;
+  border-radius: 10px;
+  height: 5vh;
+  font-size: 100%;
+  padding: 0vh 1vh;
+  display: flex;
+  width: 100%;
+}
+
+#profile-update-button:focus {
+  outline: none;
+}
+.profile-update-button-container {
+  display: flex;
+  flex-direction: row;
+  gap: 3vw;
+}
