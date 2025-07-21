@@ -127,7 +127,10 @@ const ProfilePage = () => {
                 width: "40vw",
                 backgroundColor: "rgb(0, 79, 0)",
               }}
-              onClick={handleUpdateProfile}
+              onClick={() => {
+                handleUpdateProfile();
+                handleChangePassword();
+              }}
             >
               Update Profile
             </button>
