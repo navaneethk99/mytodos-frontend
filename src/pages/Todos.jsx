@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api";
 import Accordion from "@mui/material/Accordion";
 import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -22,7 +22,7 @@ const Todos = () => {
       }
 
       try {
-        const response = await axios.post("http://127.0.0.1:8000/get-todos", {
+        const response = await api.post("/get-todos", {
           userId,
         });
         setTodos(response.data);
@@ -37,8 +37,8 @@ const Todos = () => {
 
   const toggleTodoStatus = async (_id, currentStatus) => {
     try {
-      const response = await axios.put(
-        `http://127.0.0.1:8000/update-status/${_id}`,
+      const response = await api.put(
+        `/update-status/${_id}`,
         { status: !currentStatus },
         { headers: { "Content-Type": "application/json" } }
       );
@@ -56,9 +56,7 @@ const Todos = () => {
 
   const deleteTodo = async (_id, currentStatus) => {
     try {
-      const response = await axios.delete(
-        `http://127.0.0.1:8000/delete-todo/${_id}`
-      );
+      const response = await api.delete(`/delete-todo/${_id}`);
       setTodos((prevTodos) => prevTodos.filter((todo) => todo._id !== _id));
     } catch (err) {
       console.error("Error updating status:", err);
@@ -78,7 +76,9 @@ const Todos = () => {
               display: "flex",
               justifyContent: "center",
               flexDirection: "column",
-              backgroundColor: todo.status ? "rgba(104, 188, 125, 0.36)" : "white",
+              backgroundColor: todo.status
+                ? "rgba(104, 188, 125, 0.36)"
+                : "white",
             }}
           >
             <AccordionSummary

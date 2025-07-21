@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../stylesheets/profile.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -12,8 +12,8 @@ const ProfilePage = () => {
       const userId = localStorage.getItem("userId");
       if (userId) {
         try {
-          const response = await axios.get(
-            `http://127.0.0.1:8000/get-username/${userId}`
+          const response = await api.get(
+            `/get-username/${userId}`
           );
           setUsername(response.data.username);
         } catch (error) {
