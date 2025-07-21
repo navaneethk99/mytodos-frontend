@@ -9,6 +9,7 @@ const ProfilePage = () => {
   const [userId, setUserId] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
     const storedUserId = localStorage.getItem("userId");
@@ -32,6 +33,7 @@ const ProfilePage = () => {
   const handleChangePassword = async () => {
     if (!oldPassword || !newPassword) {
       alert("Please fill in both old and new passwords");
+      setClicked(false);
       return;
     }
 
@@ -50,7 +52,7 @@ const ProfilePage = () => {
       );
 
       if (response.data.message === "Password updated successfully") {
-        alert("Password changed successfully");
+        alert("Profile Updated Successfully");
         setOldPassword("");
         setNewPassword("");
       } else {
@@ -58,11 +60,13 @@ const ProfilePage = () => {
       }
     } catch (error) {
       console.error("Error changing password:", error);
+      setClicked(false);
       alert("Failed to change password");
     }
   };
 
   const handleUpdateProfile = async () => {
+    setClicked(true);
     try {
       await api.put(
         `/edit-username/${userId}`,
@@ -73,8 +77,8 @@ const ProfilePage = () => {
           },
         }
       );
-      alert("Username updated successfully");
     } catch (err) {
+      setClicked(false);
       console.error("Error updating username:", err);
       alert("Failed to update username");
     }
@@ -121,6 +125,7 @@ const ProfilePage = () => {
           <div className="profile-update-button-container">
             <button
               id="profile-update-button"
+              disabled={clicked}
               style={{
                 marginTop: "2vh",
                 height: "6vh",
@@ -132,7 +137,7 @@ const ProfilePage = () => {
                 handleChangePassword();
               }}
             >
-              Update Profile
+              {clicked ? "Updating Profile..." : "Update Profile"}
             </button>
 
             <button

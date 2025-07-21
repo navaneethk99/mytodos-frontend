@@ -6,6 +6,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [clicked, setClicked] = useState(false);
 
   const handleSignup = async () => {
     try {
@@ -18,9 +19,11 @@ const SignUp = () => {
         localStorage.setItem("userId", response.data.userId);
         navigate("/app/add");
       } else {
+        setClicked(true);
         alert("Signup failed: " + response.data.message);
       }
     } catch (err) {
+      setClicked(true);
       console.error(err);
       alert("Signup failed due to network/server error.");
     }
@@ -56,8 +59,12 @@ const SignUp = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <div className="login-buttons-container">
-            <button className="login-buttons" onClick={handleSignup}>
-              Sign Up
+            <button
+              className="login-buttons"
+              onClick={handleSignup}
+              disabled={clicked}
+            >
+              {clicked ? "Creating Account..." : "Sign Up"}
             </button>
           </div>
           <div className="switch-login-signup" onClick={handleSwitch}>

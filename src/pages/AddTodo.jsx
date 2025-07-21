@@ -8,8 +8,10 @@ const AddTodo = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [clicked, setClicked] = useState(false);
 
   const handlePostingTodo = async () => {
+    setClicked(true);
     try {
       const userId = localStorage.getItem("userId");
 
@@ -30,10 +32,12 @@ const AddTodo = () => {
         navigate("/app/add"); // or navigate("/app/home") depending on your routing
       } else {
         alert("Failed to add todo: " + response.data.message);
+        setClicked(false);
       }
     } catch (err) {
       console.error(err);
       alert("Todo creation failed due to server error.");
+      setClicked(false);
     }
   };
 
@@ -65,6 +69,7 @@ const AddTodo = () => {
           <div className="addtodo-button-container">
             <button
               id="profile-update-button"
+              disabled={clicked}
               style={{
                 marginTop: "1vh",
                 height: "6vh",
@@ -73,7 +78,7 @@ const AddTodo = () => {
               }}
               onClick={handlePostingTodo}
             >
-              Add
+              {clicked ? "Adding..." : "Add"}
             </button>
           </div>
         </div>
