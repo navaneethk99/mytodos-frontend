@@ -7,6 +7,8 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [userId, setUserId] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   useEffect(() => {
     const storedUserId = localStorage.getItem("userId");
@@ -26,6 +28,39 @@ const ProfilePage = () => {
       navigate("/");
     }
   }, [navigate]);
+
+  const handleChangePassword = async () => {
+    if (!oldPassword || !newPassword) {
+      alert("Please fill in both old and new passwords");
+      return;
+    }
+
+    try {
+      const response = await api.put(
+        `/edit-password/${userId}`,
+        {
+          old_password: oldPassword,
+          new_password: newPassword,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.data.message === "Password updated successfully") {
+        alert("Password changed successfully");
+        setOldPassword("");
+        setNewPassword("");
+      } else {
+        alert(response.data.message);
+      }
+    } catch (error) {
+      console.error("Error changing password:", error);
+      alert("Failed to change password");
+    }
+  };
 
   const handleUpdateProfile = async () => {
     try {
@@ -68,9 +103,21 @@ const ProfilePage = () => {
             onChange={(e) => setUsername(e.target.value)}
           />
           <label style={{ marginTop: "2.5vh" }}>Old Password</label>
-          <input className="profile-edit-textbox" type="password" />
+          <input
+            className="profile-edit-textbox"
+            type="password"
+            value={oldPassword}
+            onChange={(e) => setOldPassword(e.target.value)}
+          />
+
           <label style={{ marginTop: "1vh" }}>New Password</label>
-          <input className="profile-edit-textbox" type="password" />
+          <input
+            className="profile-edit-textbox"
+            type="password"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+          />
+
           <div className="profile-update-button-container">
             <button
               id="profile-update-button"
