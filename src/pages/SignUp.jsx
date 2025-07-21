@@ -9,6 +9,7 @@ const SignUp = () => {
   const [clicked, setClicked] = useState(false);
 
   const handleSignup = async () => {
+    setClicked(true);
     try {
       const response = await api.post("/sign-up", {
         username,
@@ -19,11 +20,11 @@ const SignUp = () => {
         localStorage.setItem("userId", response.data.userId);
         navigate("/app/add");
       } else {
-        setClicked(true);
+        setClicked(false);
         alert("Signup failed: " + response.data.message);
       }
     } catch (err) {
-      setClicked(true);
+      setClicked(false);
       console.error(err);
       alert("Signup failed due to network/server error.");
     }

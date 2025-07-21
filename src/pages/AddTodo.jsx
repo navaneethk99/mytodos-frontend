@@ -29,6 +29,7 @@ const AddTodo = () => {
 
       if (response.data.success) {
         alert("Todo added!");
+        setClicked(false);
         navigate("/app/add"); // or navigate("/app/home") depending on your routing
       } else {
         alert("Failed to add todo: " + response.data.message);

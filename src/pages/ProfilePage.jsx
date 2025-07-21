@@ -31,6 +31,7 @@ const ProfilePage = () => {
   }, [navigate]);
 
   const handleChangePassword = async () => {
+    setClicked(true);
     if (!oldPassword || !newPassword) {
       alert("Please fill in both old and new passwords");
       setClicked(false);
@@ -53,6 +54,7 @@ const ProfilePage = () => {
 
       if (response.data.message === "Password updated successfully") {
         alert("Profile Updated Successfully");
+        setClicked(false);
         setOldPassword("");
         setNewPassword("");
       } else {
