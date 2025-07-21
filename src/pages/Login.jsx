@@ -7,8 +7,10 @@ const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [clicked, setClicked] = useState(false);
 
   const handleLogin = async () => {
+    setClicked(true);
     try {
       const response = await api.post("/sign-in", {
         username,
@@ -20,8 +22,10 @@ const Login = () => {
         navigate("/app/add");
       } else {
         alert("Login failed: " + response.data.message);
+        setClicked(false);
       }
     } catch (err) {
+      setClicked(false);
       console.error(err);
       alert("Login failed due to network/server error.");
     }
@@ -55,8 +59,12 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
             <div className="login-buttons-container">
-              <button className="login-buttons" onClick={handleLogin}>
-                Sign In
+              <button
+                className="login-buttons"
+                onClick={handleLogin}
+                disabled={clicked}
+              >
+                {clicked ? "Signing In..." : "Sign In"}
               </button>
             </div>
             <div className="switch-login-signup" onClick={handleSwitch}>
