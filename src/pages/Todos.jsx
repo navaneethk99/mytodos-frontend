@@ -83,6 +83,8 @@ const Todos = () => {
               flexDirection: "column",
               backgroundColor: todo.status
                 ? "rgba(104, 188, 125, 0.36)"
+                : dayjs().isAfter(dayjs.utc(todo.datetime).tz("Asia/Kolkata"))
+                ? "rgba(255, 0, 0, 0.2)"
                 : "white",
             }}
           >
