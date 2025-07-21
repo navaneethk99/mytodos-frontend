@@ -4,10 +4,17 @@ import api from "../api";
 
 import "../stylesheets/addtodo.css";
 
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
+import dayjs from "dayjs";
+import "dayjs/locale/en-gb";
+
 const AddTodo = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [datetime, setDatetime] = useState("");
   const [clicked, setClicked] = useState(false);
 
   const handlePostingTodo = async () => {
@@ -24,13 +31,14 @@ const AddTodo = () => {
         userId,
         title,
         description,
+        datetime,
         status: false,
       });
 
       if (response.data.success) {
         alert("Todo added!");
         setClicked(false);
-        navigate("/app/add"); // or navigate("/app/home") depending on your routing
+        navigate("/app/add");
       } else {
         alert("Failed to add todo: " + response.data.message);
         setClicked(false);
@@ -67,6 +75,16 @@ const AddTodo = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
+          <label style={{ marginTop: "1vh" }}>Deadline</label>
+          <LocalizationProvider
+            dateAdapter={AdapterDayjs}
+            adapterLocale="en-gb"
+          >
+            <MobileDateTimePicker
+              defaultValue={dayjs()}
+              onChange={(newValue) => setDatetime(newValue?.toISOString())}
+            />
+          </LocalizationProvider>
           <div className="addtodo-button-container">
             <button
               id="profile-update-button"

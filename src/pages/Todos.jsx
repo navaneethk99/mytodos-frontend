@@ -7,10 +7,15 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 
 import "../stylesheets/todos.css";
 
 const Todos = () => {
+  dayjs.extend(utc);
+  dayjs.extend(timezone);
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
@@ -90,6 +95,14 @@ const Todos = () => {
                 <strong>{todo.title}</strong>
               </Typography>
             </AccordionSummary>
+            <AccordionDetails sx={{ color: "rgba(8, 104, 8, 1)" }}>
+              <strong>
+                {dayjs
+                  .utc(todo.datetime)
+                  .tz("Asia/Kolkata")
+                  .format("DD MMM YYYY, hh:mm A")}
+              </strong>
+            </AccordionDetails>
             <AccordionDetails>{todo.description}</AccordionDetails>
             <AccordionActions>
               <Button onClick={() => toggleTodoStatus(todo._id, todo.status)}>
