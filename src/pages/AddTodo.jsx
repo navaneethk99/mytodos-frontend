@@ -81,7 +81,7 @@ const AddTodo = () => {
             adapterLocale="en-gb"
           >
             <MobileDateTimePicker
-              defaultValue={dayjs()}
+              defaultValue={dayjs().add(1, "day")}
               onChange={(newValue) => setDatetime(newValue?.toISOString())}
             />
           </LocalizationProvider>
