@@ -6,27 +6,44 @@ import api from "../api";
 const ProfilePage = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
-    const fetchUsername = async () => {
-      const userId = localStorage.getItem("userId");
-      if (userId) {
+    const storedUserId = localStorage.getItem("userId");
+    if (storedUserId) {
+      setUserId(storedUserId);
+      const fetchUsername = async () => {
         try {
-          const response = await api.get(
-            `/get-username/${userId}`
-          );
+          const response = await api.get(`/get-username/${storedUserId}`);
           setUsername(response.data.username);
         } catch (error) {
           console.error("Failed to fetch username:", error);
-          navigate("/"); // Optional: log out on error
+          navigate("/");
         }
-      } else {
-        navigate("/");
-      }
-    };
-
-    fetchUsername();
+      };
+      fetchUsername();
+    } else {
+      navigate("/");
+    }
   }, [navigate]);
+
+  const handleUpdateProfile = async () => {
+    try {
+      await api.put(
+        `/edit-username/${userId}`,
+        { username },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      alert("Username updated successfully");
+    } catch (err) {
+      console.error("Error updating username:", err);
+      alert("Failed to update username");
+    }
+  };
 
   const handleSignOut = () => {
     localStorage.removeItem("userId");
@@ -63,9 +80,11 @@ const ProfilePage = () => {
                 width: "40vw",
                 backgroundColor: "rgb(0, 79, 0)",
               }}
+              onClick={handleUpdateProfile}
             >
               Update Profile
             </button>
+
             <button
               id="profile-update-button"
               style={{
