@@ -1,5 +1,5 @@
 # myTODOS
-myTODOS is a user-friendly todo-list webapp. 
+myTODOS is a user-friendly todo-list webapp. This is only meant to be run on mobile devices.
 
 Tech Stack:- \
 -> Python with FastAPI \
