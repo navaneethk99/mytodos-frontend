@@ -5,13 +5,6 @@ import InApp from "./pages/InApp";
 import { useEffect } from "react";
 
 function App() {
-  useEffect(() => {
-    if ("Notification" in window && Notification.permission !== "granted") {
-      Notification.requestPermission().then((permission) => {
-        console.log("Notification permission:", permission);
-      });
-    }
-  }, []);
   return (
     <Router>
       <Routes>

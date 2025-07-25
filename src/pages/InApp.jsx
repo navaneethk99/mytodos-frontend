@@ -7,6 +7,13 @@ import AddTodo from "./AddTodo";
 import Todos from "./Todos";
 
 const InApp = () => {
+  useEffect(() => {
+    if ("Notification" in window && Notification.permission !== "granted") {
+      Notification.requestPermission().then((permission) => {
+        console.log("Notification permission:", permission);
+      });
+    }
+  }, []);
   return (
     <>
       <div className="app-container">
@@ -16,6 +23,9 @@ const InApp = () => {
             style={{ height: "100%", width: "100%" }}
             alt="MyTodos Logo"
           />
+          <button onClick={handleNotificationPermission}>
+            Enable Notifications
+          </button>
         </div>
 
         <Routes>
