@@ -7,13 +7,13 @@ import AddTodo from "./AddTodo";
 import Todos from "./Todos";
 
 const InApp = () => {
-  useEffect(() => {
+  const handleNotificationPermission = async () => {
     if ("Notification" in window && Notification.permission !== "granted") {
-      Notification.requestPermission().then((permission) => {
-        console.log("Notification permission:", permission);
-      });
+      const permission = await Notification.requestPermission();
+      console.log("Notification permission:", permission);
     }
-  }, []);
+  };
+
   return (
     <>
       <div className="app-container">
