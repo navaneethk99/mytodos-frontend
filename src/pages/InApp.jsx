@@ -23,9 +23,9 @@ const InApp = () => {
             style={{ height: "100%", width: "100%" }}
             alt="MyTodos Logo"
           />
-          <button onClick={handleNotificationPermission}>
+          {/* <button onClick={handleNotificationPermission}>
             Enable Notifications
-          </button>
+          </button> */}
         </div>
 
         <Routes>
